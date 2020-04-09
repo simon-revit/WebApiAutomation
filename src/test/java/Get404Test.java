@@ -5,6 +5,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -17,7 +18,6 @@ public class Get404Test extends BaseClass {
     public static final int NOTFOUND_STATUS_CODE = 404;
     CloseableHttpClient client;
     CloseableHttpResponse response;
-    //HttpClient lcients;
 
     @BeforeMethod
     public void setup() {
@@ -30,9 +30,19 @@ public class Get404Test extends BaseClass {
         response.close();
     }
 
-    @Test
-    public void nonExistingUrlReturns404() throws IOException {
-        HttpGet get = new HttpGet(BASE_URL + "/shouhldnotexist");
+    @DataProvider Object[][] nonExistentEndPoints() {
+        return new Object[][] {
+                {"/thisFolderShouldNotExist"},
+                {"/blah"}
+
+        };
+
+    }
+
+
+    @Test (dataProvider = "nonExistentEndPoints")
+    public void nonExistingUrlReturns404(String ends) throws IOException {
+        HttpGet get = new HttpGet(BASE_URL + ends);
         response = client.execute(get);
 
         int actualStatus = response.getStatusLine().getStatusCode();
