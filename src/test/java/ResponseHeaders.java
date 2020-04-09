@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class ResponseHeaders extends BaseClass {
 
@@ -54,6 +55,37 @@ public class ResponseHeaders extends BaseClass {
         String headerValue = ResponseUtils.getHeader(response, "Server");
 
         assertEquals(headerValue,"GitHub.com");
+    }
+
+    @Test
+    public void serverIsGithubJava8Way() throws IOException {
+        HttpGet get = new HttpGet(BASE_URL);
+        response = client.execute(get);
+
+        String headerValue = ResponseUtils.getHeaderJava8Way(response, "Server");
+
+        assertEquals(headerValue,"GitHub.com");
+    }
+
+    @Test
+    public void xRateLimitIs60() throws IOException {
+        HttpGet get = new HttpGet(BASE_URL);
+        response = client.execute(get);
+
+        String limitValue = ResponseUtils.getHeaderJava8Way(response, "X-Ratelimit-Limit");
+        int limitValueAsInt = Integer.parseInt(limitValue);
+
+        assertEquals(limitValueAsInt,60);
+    }
+
+    @Test
+    public void eTagIsPresent() throws IOException {
+        HttpGet get = new HttpGet(BASE_URL);
+        response = client.execute(get);
+
+        Boolean tagIsPresent = ResponseUtils.headerIsPresent(response, "ETag");
+
+        assertTrue(tagIsPresent);
     }
 
 

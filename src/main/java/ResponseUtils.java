@@ -27,4 +27,23 @@ public class ResponseUtils {
         // Returns the header, if it exists ie. passing the previous test
         return returnHeader;
     }
+
+    public static String getHeaderJava8Way(CloseableHttpResponse response, String headerName) {
+        List<Header> httpHeaders = Arrays.asList(response.getAllHeaders());
+
+        Header matchedHeader = httpHeaders.stream()
+                .filter(header -> headerName.equalsIgnoreCase(header.getName()))
+                .findFirst()
+                .orElseThrow( () -> new RuntimeException("Didn't find the header"));
+
+        return matchedHeader.getValue();
+    }
+
+    public static boolean headerIsPresent(CloseableHttpResponse response, String headerName) {
+        List<Header> httpHeaders = Arrays.asList(response.getAllHeaders());
+
+        return httpHeaders.stream()
+                .anyMatch( header -> header.getName().equalsIgnoreCase(headerName));
+    }
+
 }
