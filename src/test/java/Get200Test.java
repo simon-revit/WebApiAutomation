@@ -35,9 +35,9 @@ public class Get200Test extends BaseClass {
     @DataProvider
     private Object[][] endpoints() {
             return new Object[][] {
-                    {"/issues"},
-                    {"/emojis"},
-                    {"/rate_limit"},
+                    //{"/issues"},
+                    //{"/emojis"},
+                    //{"/rate_limit"},
                     {"/search/repositories?q=java"}
         };
     }
@@ -47,9 +47,12 @@ public class Get200Test extends BaseClass {
         HttpGet get = new HttpGet(BASE_URL + endpoint);
         response = client.execute(get);
 
+        //Create breakpoint here to collect response variables
         int actualStatus = response.getStatusLine().getStatusCode();
 
         assertEquals( actualStatus, OK_STATUS_CODE);
+
+
     }
 
 
