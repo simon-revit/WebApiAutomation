@@ -2,19 +2,17 @@ package entities;
 
 public class User {
     public static final String LOGIN = "login";
-    public static final String ID = "id";
+    public static final int ID = 0;
 
     private String login = "login";
-    private String id = "id";
+    private int id = 0;
 
 
     public String getLogin() {
         return login;
     }
 
-    public String getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
 
 

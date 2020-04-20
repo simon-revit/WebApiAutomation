@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import entities.NotFound;
 import entities.User;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -23,11 +24,8 @@ public class BodyTestWithJackson extends BaseClass {
     public void returnCorrectLogin() throws IOException {
 
         HttpGet get = new HttpGet(BASE_URL + "/users/simon-revit");
-
         response = client.execute(get);
-
-        User user = unmarshall(response, User.class);
-
+        User user = ResponseUtils.unmarshall(response, User.class);
         Assert.assertEquals( user.getLogin(), "simon-revit");
     }
 
@@ -35,23 +33,19 @@ public class BodyTestWithJackson extends BaseClass {
     public void returnCorrectId() throws IOException {
 
         HttpGet get = new HttpGet(BASE_URL + "/users/simon-revit");
-
         response = client.execute(get);
-
-        User user = unmarshall(response, User.class);
-
+        User user = ResponseUtils.unmarshallGeneric(response, User.class);
         Assert.assertEquals( user.getId(), 62121680);
     }
 
+    @Test
+    public void notFoundMessage() throws IOException {
 
-    private User unmarshall(CloseableHttpResponse response, Class<User> clazz) throws IOException {
-
-        String jsonBody = EntityUtils.toString(response.getEntity());
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        //.configure(JsonGenerator.Feature.AUTO_CLOSE_TARGET,false)
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        //.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-        return objectMapper.readValue(jsonBody, clazz);
+        HttpGet get = new HttpGet(BASE_URL + "/nonexisting/endpoint");
+        response = client.execute(get);
+        NotFound notFoundMessage = ResponseUtils.unmarshallGeneric(response, NotFound.class);
+        Assert.assertEquals( notFoundMessage.getMessage(), "Not Found");
     }
+
+
 }
