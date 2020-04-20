@@ -25,7 +25,7 @@ public class RateLimit {
     private void unmarshallNested(Map<String, Object> resources) { // can use something else rather than 'resources'
         Map<String, Integer> core = (Map<String,Integer>) resources.get("core");
         coreLimit = core.get("limit");
-        // Should be Interger, not a String, like the commented-out line below:
+        // Should be Integer, not a String, like the commented-out line below:
         //Map<String, String> search = (Map<String,Integer>) resources.get("search");
         Map<String, String> search = (Map<String,String>) resources.get("search");
         searchLimit = String.valueOf(search.get("limit"));
