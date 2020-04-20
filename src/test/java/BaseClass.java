@@ -10,4 +10,18 @@ public class BaseClass {
     protected static final String BASE_URL = "https://api.github.com";
 
 
+    protected CloseableHttpClient client;
+    protected CloseableHttpResponse response;
+
+    @BeforeMethod
+    public void setup() {
+        client = HttpClientBuilder.create().build();
+    }
+
+    @AfterMethod
+    public void closeResources() throws IOException {
+        client.close();
+        response.close();
+    }
+
 }
