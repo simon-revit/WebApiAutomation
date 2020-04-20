@@ -8,7 +8,9 @@ import java.io.IOException;
 
 public class BaseClass {
     protected static final String BASE_URL = "https://api.github.com";
-
+    protected static final int OK_STATUS_CODE = 200;
+    protected static final int NOT_FOUND_STATUS_CODE = 404;
+    protected static final int NON_AUTHORISED_STATUS_CODE = 401;
 
     protected CloseableHttpClient client;
     protected CloseableHttpResponse response;

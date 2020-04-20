@@ -9,7 +9,6 @@ import java.io.IOException;
 
 public class BodyTestWithJackson extends BaseClass {
 
-
     @Test
     public void returnCorrectLogin() throws IOException {
 

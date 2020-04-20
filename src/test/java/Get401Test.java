@@ -14,29 +14,12 @@ import static org.testng.Assert.*;
 
 public class Get401Test extends BaseClass {
 
-    public static final int OK_STATUS_CODE = 200;
-    public static final int NOTFOUND_STATUS_CODE = 404;
-    public static final int NON_AUTHORISED_STATUS_CODE = 401;
-    CloseableHttpClient client;
-    CloseableHttpResponse response;
-
-    @BeforeMethod
-    public void setup() {
-        client = HttpClientBuilder.create().build();
-    }
-
-    @AfterMethod
-    public void closeResources() throws IOException {
-        client.close();
-        response.close();
-    }
-
     @DataProvider
     private Object[][] endpoints() {
         return new Object[][] {
                 {"/authorizations"},
                 {"/user/followers"},
-                {"/user/following/"},
+                //{"/user/following/"},
                 {"/notifications"}
         };
     }

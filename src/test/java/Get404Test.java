@@ -14,22 +14,6 @@ import static org.testng.Assert.*;
 
 public class Get404Test extends BaseClass {
 
-    public static final int OK_STATUS_CODE = 200;
-    public static final int NOTFOUND_STATUS_CODE = 404;
-    CloseableHttpClient client;
-    CloseableHttpResponse response;
-
-    @BeforeMethod
-    public void setup() {
-        client = HttpClientBuilder.create().build();
-    }
-
-    @AfterMethod
-    public void closeResources() throws IOException {
-        client.close();
-        response.close();
-    }
-
     @DataProvider Object[][] nonExistentEndPoints() {
         return new Object[][] {
                 {"/thisFolderShouldNotExist"},
@@ -47,6 +31,6 @@ public class Get404Test extends BaseClass {
 
         int actualStatus = response.getStatusLine().getStatusCode();
 
-        assertEquals( actualStatus, NOTFOUND_STATUS_CODE);
+        assertEquals( actualStatus, NOT_FOUND_STATUS_CODE);
     }
 }

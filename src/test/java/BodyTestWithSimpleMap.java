@@ -59,9 +59,7 @@ public class BodyTestWithSimpleMap extends BaseClass {
         response = client.execute(get);
 
         String jsonBody = EntityUtils.toString( response.getEntity() );
-
         JSONObject jsonObject = new JSONObject((jsonBody));
-
         Integer loginValue = (Integer) getValueFor(jsonObject, ID);
 
         Assert.assertEquals(loginValue, Integer.valueOf(62121680));

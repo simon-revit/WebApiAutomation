@@ -15,29 +15,12 @@ import static org.testng.Assert.*;
 
 public class Get200Test extends BaseClass {
 
-
-    public static final int OK_STATUS_CODE = 200;
-    public static final int NOTFOUND_STATUS_CODE = 404;
-    CloseableHttpClient client;
-    CloseableHttpResponse response;
-
-    @BeforeMethod
-    public void setup() {
-        client = HttpClientBuilder.create().build();
-    }
-
-    @AfterMethod
-    public void closeResources() throws IOException {
-        client.close();
-        response.close();
-    }
-
     @DataProvider
     private Object[][] endpoints() {
             return new Object[][] {
                     //{"/issues"},
-                    //{"/emojis"},
-                    //{"/rate_limit"},
+                    {"/emojis"},
+                    {"/rate_limit"},
                     {"/search/repositories?q=java"}
         };
     }

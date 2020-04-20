@@ -18,20 +18,6 @@ import static org.testng.Assert.assertTrue;
 
 public class ResponseHeaders extends BaseClass {
 
-    CloseableHttpClient client;
-    CloseableHttpResponse response;
-
-    @BeforeMethod
-    public void setup() {
-        client = HttpClientBuilder.create().build();
-    }
-
-    @AfterMethod
-    public void closeResources() throws IOException {
-        client.close();
-        response.close();
-    }
-
     @Test
     public void contentTypeIsJson() throws IOException {
         HttpGet get = new HttpGet(BASE_URL);
