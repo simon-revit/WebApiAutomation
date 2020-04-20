@@ -17,8 +17,6 @@ import static entities.User.LOGIN;
 
 public class BodyTestWithSimpleMap extends BaseClass {
 
-    public static final int OK_STATUS_CODE = 200;
-    public static final int NOTFOUND_STATUS_CODE = 404;
     CloseableHttpClient client;
     CloseableHttpResponse response;
 
